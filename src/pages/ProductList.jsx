@@ -38,12 +38,24 @@ const handlePriceFilterChange =(e)=>{
 }
 
 
-  //const filteredBooks = products?.filter(book => book.genre.includes(category));
-  //book.genre.includes(category) &&
-   const filteredBooks = products?.filter((book) => 
-     book.title.toLowerCase().includes(searchTerm.toLowerCase()));
-  console.log('Filtered Books:', filteredBooks); 
+  // const filteredBooks = products?.filter((book) =>  book?.title.toLowerCase().includes(searchTerm.toLowerCase()))// for searching 
+  
+  // const filteredBooks = products?.filter((book) => book?.genre.includes(category) ) //for filtering based on category directed from homepage
 
+
+  const filteredBooks = products?.filter(book => {
+    let isMatch = true;
+    if (category) {
+      isMatch = book?.genre.includes(category);
+    }
+    if (searchTerm) {
+      isMatch = book?.title.toLowerCase().includes(searchTerm.toLowerCase());
+    }
+    return isMatch;
+  });
+
+
+  
   
   const handleChangeCheckbox= (e)=>{
     const {value,checked} = e.target
@@ -132,6 +144,8 @@ const sortedBooks = filterBooksByPrice?.sort((a,b)=>{
       {/* category books */}
     <div className="col-md-9  py-4  mt-2 ">
       <div className='container'>
+        {alertMessage && <div className="alert alert-success mt-3">{alertMessage}</div>} 
+
        <h2>Books in {category}</h2>
        <div className="row">
         {filteredBooks?.map((book, index) => (
@@ -159,7 +173,6 @@ const sortedBooks = filterBooksByPrice?.sort((a,b)=>{
       <div>
         {status === 'loading' && 'loading....'}
         {error && 'an error occured while fetching data'}
-        {alertMessage && <div className="alert alert-success mt-3">{alertMessage}</div>} 
 
         {filterBooksByPrice && <div>
           <h2> Showing All Books ({filterBooksByPrice.length})</h2>

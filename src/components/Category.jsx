@@ -11,8 +11,6 @@ const Category= ()=>{
   const status = useSelector(state=> state.categories.status)
   const error = useSelector(state=> state.categories.error)
   
-  // const {data,loading,error} = useFetch("https://b-ebooksmajorproj1.vercel.app/categories")
-                                        //https://4349725a-dc5b-46ca-90cb-d422c97ddd3d-00-an2orxwkvzx.sisko.replit.dev/categories")
                                         
     useEffect(()=>{
         dispatch(fetchCategories())
