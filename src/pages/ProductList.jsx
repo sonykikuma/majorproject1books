@@ -36,9 +36,12 @@ const handlePriceFilterChange =(e)=>{
   const {value}= e.target
   setSelectedPriceFilters(prev => prev.includes(value) ? prev.filter(item => item !== value) : [...prev, value])
 }
-  
+
+
   //const filteredBooks = products?.filter(book => book.genre.includes(category));
-  const filteredBooks = products?.filter((book) => book.genre.includes(category) && book.title.toLowerCase().includes(searchTerm.toLowerCase()));
+  //book.genre.includes(category) &&
+   const filteredBooks = products?.filter((book) => 
+     book.title.toLowerCase().includes(searchTerm.toLowerCase()));
   console.log('Filtered Books:', filteredBooks); 
 
   
@@ -192,4 +195,5 @@ const sortedBooks = filterBooksByPrice?.sort((a,b)=>{
   </>)
 }
 export default ProductList
+
 

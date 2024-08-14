@@ -40,10 +40,12 @@ const cart = useSelector(state=> state.cart.cart)
       <div className='card p-3 my-3'>
         <h4>Total Price: Rs. {totalPrice}</h4>
       </div>
-      <div className='d-flex justify-content-between'>
+      <div className='d-flex justify-content-between align-items-center'>
       <button className='btn btn-primary' onClick={() => navigate('/order-confirm')}>Confirm Order</button> 
       <Link to="/cart" className='btn btn-primary'>Want to Re-check</Link>
-        </div></>):(<p className='container py-4'>No address selected. Please select an address and try again.</p>)}
+        </div></>):(<div><p className='container py-4'>No address selected. Please select an address and try again.</p>
+        <Link to="/cart" className='btn btn-primary'>Back to Cart</Link>
+        </div>)}
     </div>
   
   </>)
