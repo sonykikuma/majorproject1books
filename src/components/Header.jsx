@@ -14,7 +14,7 @@ const Header = () => {
     <header className="">
       <nav className="navbar navbar-expand-lg ">
         <div className="container">
-          <NavLink to="/" className="navbar-brand fw-bold text-primary">
+          <NavLink to="/" className="navbar-brand fw-bold text-primary ">
             MyShoppingSite
           </NavLink>
           <button
@@ -50,7 +50,7 @@ const Header = () => {
               />
             </form>
             {/* right side */}
-            <div className="d-flex mt-1">
+            <div className="d-flex mt-1 align-items-center">
               <NavLink to="/user" className="btn btn-primary text-light ">
                 Login
               </NavLink>
@@ -59,8 +59,8 @@ const Header = () => {
                 <div className="ps-3 pe-1">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    width="20"
-                    height="20"
+                    width="26"
+                    height="26"
                     fill="currentColor"
                     className="bi bi-cart "
                     viewBox="0 0 16 16"
@@ -71,11 +71,11 @@ const Header = () => {
               </NavLink>
               <NavLink to="/wishlists">
                 {" "}
-                <div className="ps-3">
+                <div className="ps-2">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    width="20"
-                    height="20"
+                    width="26"
+                    height="26"
                     fill="currentColor"
                     className="bi bi-heart"
                     viewBox="0 0 16 16"
