@@ -51,7 +51,7 @@ const Wishlist = () => {
 
           <div className="row mt-3">
             {wishlists.items?.map((item) => (
-              <div className="col-md-4" key={item._id}>
+              <div className="col-md-3" key={item._id}>
                 <Link
                   to={`/products/${item.productId._id}`}
                   style={{ textDecoration: "none" }}

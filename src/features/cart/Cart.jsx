@@ -85,8 +85,8 @@ const Cart = () => {
               <div className=" " key={item._id}>
                 <div className="card mb-3">
                   <div className="d-flex justify-content-between align-items-center">
-                    <div className="m-2  col-md-6 text-center">
-                      <div className="py-2">
+                    <div className="m-1  col-md-6 text-center">
+                      <div className="py-1">
                         <img
                           className="img-fluid "
                           src={item.productId.coverImageUrl}
@@ -105,7 +105,7 @@ const Cart = () => {
                       </div>
                     </div>
 
-                    <div className="m-2   col-md-6">
+                    <div className="m-1  col-md-6">
                       <p>Price: Rs.{item.productId.price}</p>
                       <p>
                         {" "}
@@ -134,7 +134,7 @@ const Cart = () => {
                         </button>
                         <button
                           onClick={() => deleteHandler(item.productId._id)}
-                          className="ms-2 btn btn-danger"
+                          className="ms-2 btn btn-danger mt-1"
                         >
                           delete
                         </button>

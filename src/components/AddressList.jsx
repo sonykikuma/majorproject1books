@@ -49,8 +49,8 @@ const AddressList = () => {
           key={address._id}
           className="border border-grey py-2 rounded container mb-3"
         >
-          <div className="d-flex justify-content-between align-items-center">
-            <label>
+          <div className="d-flex justify-content-between align-items-center flex-wrap">
+            <label className="mb-2">
               <input
                 type="radio"
                 name="address"
@@ -63,7 +63,7 @@ const AddressList = () => {
                 {address.postalCode}, {address.country}
               </span>
             </label>
-            <div className="d-flex">
+            <div className="d-flex ">
               <button
                 onClick={() => handleDelete(address._id)}
                 className="btn btn-danger "
@@ -80,9 +80,15 @@ const AddressList = () => {
           </div>
         </div>
       ))}
-      <button onClick={handleAddNew} className="mt-2 btn btn-success">
-        Add New Address
-      </button>
+      <div className="d-flex justify-content-center mb-2">
+        <button
+          onClick={handleAddNew}
+          className="mt-2 btn btn-success"
+          style={{ width: "18rem" }}
+        >
+          Add New Address
+        </button>
+      </div>
     </div>
   );
 };
