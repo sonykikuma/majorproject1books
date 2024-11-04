@@ -40,10 +40,6 @@ const ProductList = () => {
     );
   };
 
-  // const filteredBooks = products?.filter((book) =>  book?.title.toLowerCase().includes(searchTerm.toLowerCase()))// for searching
-
-  // const filteredBooks = products?.filter((book) => book?.genre.includes(category) ) //for filtering based on category directed from homepage
-
   const filteredBooks = products?.filter((book) => {
     let isMatch = true;
     if (category) {
@@ -313,3 +309,7 @@ const ProductList = () => {
   );
 };
 export default ProductList;
+
+// const filteredBooks = products?.filter((book) =>  book?.title.toLowerCase().includes(searchTerm.toLowerCase()))// for searching
+
+// const filteredBooks = products?.filter((book) => book?.genre.includes(category) ) //for filtering based on category directed from homepage
