@@ -6,7 +6,8 @@ const Header = () => {
   const navigate = useNavigate();
 
   const handleSearch = (e) => {
-    e.preventDefault();
+    setSearchTerm(e.target.value);
+    //e.preventDefault();
     navigate(`/productList/search?query=${encodeURIComponent(searchTerm)}`);
   };
 
@@ -39,16 +40,20 @@ const Header = () => {
                 </NavLink>
               </li>
             </ul>
-            <form className="d-flex" onSubmit={handleSearch}>
+            <div
+              className="d-flex"
+              //onSubmit={handleSearch}
+            >
               <input
                 className="form-control me-2"
                 type="search"
-                placeholder="Search"
+                placeholder="Search by title..."
                 aria-label="Search"
                 value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
+                onChange={handleSearch}
+                //onChange={(e) => setSearchTerm(e.target.value)}
               />
-            </form>
+            </div>
             {/* right side */}
             <div className="d-flex mt-1 align-items-center">
               <NavLink to="/user" className=" ">

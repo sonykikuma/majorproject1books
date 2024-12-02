@@ -4,6 +4,7 @@ import { fetchProducts, resetSort } from "../features/products/productSlice";
 import { useEffect, useState } from "react";
 import {
   addToWishlist,
+  deleteWishlistItem,
   toggleWishlist,
 } from "../features/wishlist/wishlistSlice";
 import { addToCart } from "../features/cart/cartSlice";
@@ -38,6 +39,24 @@ const ProductList = () => {
   //console.log(wishlists.items);
   const isWishlisted = (productId) =>
     wishlists?.items?.some((item) => item?.productId?._id === productId);
+
+  const wishlistHandler = (book) => {
+    if (isWishlisted(book._id)) {
+      console.log(isWishlisted(book._id));
+      dispatch(deleteWishlistItem(book._id));
+      setAlertMessage("Product removed from wishlist successfully!");
+    } else {
+      dispatch(addToWishlist({ productId: book._id }));
+      setAlertMessage("Product added to wishlist successfully!");
+    }
+
+    setTimeout(() => {
+      setAlertMessage("");
+      if (!isWishlisted(book._id)) {
+        navigate("/wishlists");
+      }
+    }, 2000);
+  };
 
   const handlePriceFilterChange = (e) => {
     const { value } = e.target;
@@ -99,15 +118,15 @@ const ProductList = () => {
       navigate("/cart");
     }, 2000);
   };
-  const addToWishlistHandler = (book) => {
-    dispatch(addToWishlist({ productId: book?._id }));
-    setAlertMessage("Product added to wishlist successfully!");
+  // const addToWishlistHandler = (book) => {
+  //   dispatch(addToWishlist({ productId: book?._id }));
+  //   setAlertMessage("Product added to wishlist successfully!");
 
-    setTimeout(() => {
-      setAlertMessage("");
-      navigate("/wishlists");
-    }, 2000);
-  };
+  //   setTimeout(() => {
+  //     setAlertMessage("");
+  //     navigate("/wishlists");
+  //   }, 2000);
+  // };
 
   const filterBooksByPrice = filterBooksByRating?.filter((book) => {
     if (selectedPriceFilters.length === 0) return true;
@@ -226,7 +245,7 @@ const ProductList = () => {
                           </button>
                           <button
                             className="bg-white wishlist-btn"
-                            onClick={() => addToWishlistHandler(book)}
+                            onClick={() => wishlistHandler(book)}
                             style={{ border: "none" }}
                           >
                             {/* Add to wishlist{" "} */}
@@ -293,6 +312,7 @@ const ProductList = () => {
                               </Link>
                             </div>
                             <div className="card-body">
+                              <h5> {book.title}</h5>
                               <p>Author: {book.author}</p>
                               <p>Year Published: {book.publishedYear}</p>
                               <p>Genre: {book.genre.join(", ")}</p>
@@ -312,7 +332,8 @@ const ProductList = () => {
 
                                 <button
                                   className="bg-white wishlist-btn"
-                                  onClick={() => addToWishlistHandler(book)}
+                                  onClick={() => wishlistHandler(book)}
+                                  //onClick={() => addToWishlistHandler(book)}
                                   style={{ border: "none" }}
                                 >
                                   {" "}
@@ -322,7 +343,7 @@ const ProductList = () => {
                                       width="30"
                                       height="30"
                                       fill="red"
-                                      class="bi bi-heart-fill"
+                                      className="bi bi-heart-fill"
                                       viewBox="0 0 16 16"
                                     >
                                       <path

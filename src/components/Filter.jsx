@@ -144,6 +144,8 @@ const Filter = ({
         />
         <span> {filterByRating} </span>
         <br />
+        <hr />
+
         <h6>Price</h6>
         {/* <form id="priceFilter" > */}
         <label>
