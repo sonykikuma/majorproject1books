@@ -50,16 +50,16 @@ const Wishlist = () => {
           )}
 
           <div className="row mt-3">
-            {wishlists.items?.map((item) => (
-              <div className="col-md-3" key={item._id}>
+            {wishlists?.items?.map((item) => (
+              <div className="col-md-3" key={item?._id}>
                 <Link
-                  to={`/products/${item.productId._id}`}
+                  to={`/products/${item?.productId?._id}`}
                   style={{ textDecoration: "none" }}
                 >
                   <div className="card mb-4">
                     <div className="card-header">
                       <img
-                        src={item.productId.coverImageUrl}
+                        src={item?.productId?.coverImageUrl}
                         alt="book image"
                         style={{
                           height: "450px",
@@ -70,17 +70,27 @@ const Wishlist = () => {
                       />
                     </div>
                     <div className="card-body">
-                      <p>{item.productId.title}</p>
-                      <p>Author: {item.productId.author}</p>
-                      <p>Rating: {item.productId.rating}</p>
-                      <p>Genre: {item.productId.genre.join(", ")}</p>
+                      <p
+                        style={{
+                          display: "-webkit-box",
+                          WebkitBoxOrient: "vertical",
+                          WebkitLineClamp: 1, //here limiting summary to one line only
+                          overflow: "hidden",
+                          textOverflow: "ellipsis",
+                        }}
+                      >
+                        {item?.productId?.title}
+                      </p>
+                      <p>Author: {item?.productId?.author}</p>
+                      <p>Rating: {item?.productId?.rating}</p>
+                      <p>Genre: {item?.productId?.genre.join(", ")}</p>
 
-                      <p>Price: Rs.{item.productId.price}</p>
+                      <p>Price: Rs.{item?.productId?.price}</p>
                     </div>
                     <div className="container pb-3 d-flex justify-content-between">
                       <button
                         className="btn btn-primary"
-                        onClick={() => movetocartHandler(item.productId._id)}
+                        onClick={() => movetocartHandler(item?.productId?._id)}
                       >
                         Move to Cart
                       </button>
@@ -88,7 +98,7 @@ const Wishlist = () => {
                         className="btn btn-danger"
                         onClick={(e) => {
                           e.preventDefault();
-                          deleteHandler(item.productId._id);
+                          deleteHandler(item?.productId?._id);
                         }}
                       >
                         Delete

@@ -60,10 +60,10 @@ const Cart = () => {
   };
 
   const totalPrice = cart.items.reduce((acc, item) => {
-    return acc + item.productId.price * item.quantity;
+    return acc + item?.productId?.price * item?.quantity;
   }, 0);
 
-  const totalQuantity = cart.items.reduce((acc, curr) => {
+  const totalQuantity = cart?.items?.reduce((acc, curr) => {
     return acc + curr.quantity;
   }, 0);
 
@@ -82,14 +82,14 @@ const Cart = () => {
         <div className="row">
           <div className="col-md-8">
             {cart.items?.map((item) => (
-              <div className=" " key={item._id}>
+              <div className=" " key={item?._id}>
                 <div className="card mb-3">
                   <div className="d-flex justify-content-between align-items-center">
                     <div className="m-1  col-md-6 text-center">
                       <div className="py-1">
                         <img
                           className="img-fluid "
-                          src={item.productId.coverImageUrl}
+                          src={item?.productId?.coverImageUrl}
                           alt="cover image"
                           style={{
                             objectFit: "cover",
@@ -99,25 +99,25 @@ const Cart = () => {
                         />
                       </div>
                       <div className="">
-                        <strong>{item.productId.title}</strong>
+                        <strong>{item?.productId?.title}</strong>
                         <br />
-                        {item.productId.author}
+                        {item?.productId?.author}
                       </div>
                     </div>
 
                     <div className="m-1  col-md-6">
-                      <p>Price: Rs.{item.productId.price}</p>
+                      <p>Price: Rs.{item?.productId?.price}</p>
                       <p>
                         {" "}
-                        Quantity: {item.quantity}{" "}
+                        Quantity: {item?.quantity}{" "}
                         <button
-                          onClick={() => handleIncrement(item.productId._id)}
+                          onClick={() => handleIncrement(item?.productId?._id)}
                         >
                           {" "}
                           +{" "}
                         </button>{" "}
                         <button
-                          onClick={() => handleDecrement(item.productId._id)}
+                          onClick={() => handleDecrement(item?.productId?._id)}
                         >
                           {" "}
                           -{" "}
@@ -126,14 +126,14 @@ const Cart = () => {
                       <div className="">
                         <button
                           onClick={() =>
-                            movetowishlistHandler(item.productId._id)
+                            movetowishlistHandler(item?.productId?._id)
                           }
                           className="btn btn-primary"
                         >
                           Move to wishlist
                         </button>
                         <button
-                          onClick={() => deleteHandler(item.productId._id)}
+                          onClick={() => deleteHandler(item?.productId?._id)}
                           className="ms-2 btn btn-danger mt-1"
                         >
                           delete

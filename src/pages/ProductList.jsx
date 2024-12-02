@@ -2,7 +2,10 @@ import { useParams, useNavigate, useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchProducts, resetSort } from "../features/products/productSlice";
 import { useEffect, useState } from "react";
-import { addToWishlist } from "../features/wishlist/wishlistSlice";
+import {
+  addToWishlist,
+  toggleWishlist,
+} from "../features/wishlist/wishlistSlice";
 import { addToCart } from "../features/cart/cartSlice";
 import Header from "../components/Header";
 import Filter from "../components/Filter";
@@ -14,6 +17,7 @@ const ProductList = () => {
   const { category } = useParams();
   const location = useLocation();
   const products = useSelector((state) => state.products.products);
+  const wishlists = useSelector((state) => state.wishlists.wishlists);
   const status = useSelector((state) => state.products.status);
   const error = useSelector((state) => state.products.error);
   const sortBy = useSelector((state) => state.products.sortBy);
@@ -30,6 +34,10 @@ const ProductList = () => {
   const searchParams = new URLSearchParams(location.search);
   const searchTerm = searchParams.get("query") || "";
   // console.log('Search Term:', searchTerm);
+
+  //console.log(wishlists.items);
+  const isWishlisted = (productId) =>
+    wishlists?.items?.some((item) => item?.productId?._id === productId);
 
   const handlePriceFilterChange = (e) => {
     const { value } = e.target;
@@ -173,7 +181,18 @@ const ProductList = () => {
                         </Link>{" "}
                       </div>
                       <div className="card-body">
-                        <h5 className="card-title">{book.title}</h5>
+                        <h5
+                          className="card-title"
+                          style={{
+                            display: "-webkit-box",
+                            WebkitBoxOrient: "vertical",
+                            WebkitLineClamp: 1, //here limiting summary to one line only
+                            overflow: "hidden",
+                            textOverflow: "ellipsis",
+                          }}
+                        >
+                          {book.title}
+                        </h5>
                         <p
                           className="card-text"
                           style={{
@@ -184,8 +203,14 @@ const ProductList = () => {
                             textOverflow: "ellipsis",
                           }}
                         >
-                          {book.summary}
+                          {/* {book.summary} */}
                         </p>
+                        <p className="card-text">
+                          <small className="text-muted">
+                            Price: Rs.{book.price}
+                          </small>
+                        </p>
+
                         <p className="card-text">
                           <small className="text-muted">
                             Rating: {book.rating}
@@ -205,16 +230,31 @@ const ProductList = () => {
                             style={{ border: "none" }}
                           >
                             {/* Add to wishlist{" "} */}
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              width="30"
-                              height="30"
-                              fill="red"
-                              className="bi bi-heart text-danger "
-                              viewBox="0 0 16 16"
-                            >
-                              <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143q.09.083.176.171a3 3 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15" />
-                            </svg>
+                            {isWishlisted(book._id) ? (
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="30"
+                                height="30"
+                                fill="red"
+                                class="bi bi-heart-fill"
+                                viewBox="0 0 16 16"
+                              >
+                                <path
+                                  fill-rule="evenodd"
+                                  d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314"
+                                />
+                              </svg>
+                            ) : (
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="30"
+                                height="30"
+                                fill="red"
+                                viewBox="0 0 16 16"
+                              >
+                                <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143q.09.083.176.171a3 3 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15" />
+                              </svg>
+                            )}
                           </button>
                         </div>
                       </div>
@@ -256,17 +296,10 @@ const ProductList = () => {
                               <p>Author: {book.author}</p>
                               <p>Year Published: {book.publishedYear}</p>
                               <p>Genre: {book.genre.join(", ")}</p>
-                              <p
-                                style={{
-                                  display: "-webkit-box",
-                                  WebkitBoxOrient: "vertical",
-                                  WebkitLineClamp: 3, //here limiting summary to three lines only
-                                  overflow: "hidden",
-                                  textOverflow: "ellipsis",
-                                }}
-                              >
-                                Summary: {book.summary}
+                              <p className="card-text">
+                                Price: Rs.{book.price}
                               </p>
+
                               <p>Rating: {book.rating}</p>
                               <div className="d-flex justify-content-between">
                                 <button
@@ -276,21 +309,38 @@ const ProductList = () => {
                                 >
                                   Add to Cart
                                 </button>
+
                                 <button
                                   className="bg-white wishlist-btn"
                                   onClick={() => addToWishlistHandler(book)}
                                   style={{ border: "none" }}
                                 >
-                                  <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    width="30"
-                                    height="30"
-                                    fill="currentColor"
-                                    className="bi bi-heart text-danger"
-                                    viewBox="0 0 16 16"
-                                  >
-                                    <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143q.09.083.176.171a3 3 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15" />
-                                  </svg>
+                                  {" "}
+                                  {isWishlisted(book._id) ? (
+                                    <svg
+                                      xmlns="http://www.w3.org/2000/svg"
+                                      width="30"
+                                      height="30"
+                                      fill="red"
+                                      class="bi bi-heart-fill"
+                                      viewBox="0 0 16 16"
+                                    >
+                                      <path
+                                        fill-rule="evenodd"
+                                        d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314"
+                                      />
+                                    </svg>
+                                  ) : (
+                                    <svg
+                                      xmlns="http://www.w3.org/2000/svg"
+                                      width="30"
+                                      height="30"
+                                      fill="red"
+                                      viewBox="0 0 16 16"
+                                    >
+                                      <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143q.09.083.176.171a3 3 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15" />
+                                    </svg>
+                                  )}
                                 </button>
                               </div>
                             </div>

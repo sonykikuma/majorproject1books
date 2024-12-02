@@ -49,8 +49,9 @@ const AddressList = () => {
           key={address._id}
           className="border border-grey py-2 rounded container mb-3"
         >
-          <div className="d-flex justify-content-between align-items-center flex-wrap">
-            <label className="mb-2">
+          <div className="d-flex flex-column justify-content-between  flex-wrap">
+            <label className="mb-2 ">
+              {/* <label className="mb-2"> */}
               <input
                 type="radio"
                 name="address"

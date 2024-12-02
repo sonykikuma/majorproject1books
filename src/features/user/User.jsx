@@ -47,10 +47,10 @@ const User = () => {
                     }}
                   />
                 </div>{" "}
-                <h4 className="py-1 pt-2  ms-3">
-                  <span className="display-4 text-primary fs-2">Hello</span>,{" "}
-                  {user.name}
-                </h4>
+                {/* <h4 className="py-1 pt-2  ms-3">
+                   <span className="display-4 text-primary fs-2">Hello</span>,{" "}
+                  {user.name} 
+                </h4> */}
               </div>
               <div className="py-1 px-3">
                 <h4 className="">
