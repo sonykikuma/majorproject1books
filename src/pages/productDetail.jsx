@@ -65,7 +65,7 @@ const ProductDetail = () => {
                       src={productData.coverImageUrl}
                       alt={productData.title}
                       className="img-fluid rounded-start"
-                      style={{ height: "100%", objectFit: "cover" }}
+                      style={{ minHeight: "100%", objectFit: "cover" }}
                     />
                   </div>
                   <div class="col-md-8 px-2 py-3 mt-5">
